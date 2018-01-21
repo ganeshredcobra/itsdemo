@@ -20,7 +20,7 @@ def index():
 
 @app.route('/data', methods=['POST'])
 def push_data(): 
-    print request.json
+    print (request.json)
     values.append(request.json)
     return "success.."
 
