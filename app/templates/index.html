@@ -1,0 +1,30 @@
+<html>
+    <head>
+        {% if title %}
+        <title>{{ title }} - Microblog</title>
+        {% else %}
+        <title>Welcome to sample App!</title>
+        {% endif %}
+        <link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
+    </head>
+    <body>
+        <h1> Sample data...</h1>
+        <table>
+          <thead>
+            {% for key in data[0] if key in display_items %}
+               <th>{{ key }}</th>
+            {% endfor %}
+          </thead>
+          <tbody>
+         {% for row in data %}
+           <tr>
+           {% for key, value in row.items() if key in display_items %}
+              <td> {{value}} </td>
+           {% endfor %}
+           </tr>
+         {% endfor %}
+          </tbody>
+        </table>
+           
+    </body>
+</html>
