@@ -13,7 +13,7 @@ def index():
   if not values:
      return "Please send data to this application..."
   else:
-     display_items = ["Timestamp","Voltage","Current", "Resistance", "Battery", "Vehicle speed","Diagnostic message","Engine speed", "Engine oil","Coolant level"] 
+     display_items = ["Timestamp","Voltage","Current", "Resistance", "Battery", "Vehicle_speed","Diagnostic_message","Engine_speed", "Engine_oil","Coolant_level"] 
      return render_template("index.html", data=values, display_items = display_items)
   
   
@@ -29,7 +29,7 @@ def fetch_data():
     if not values:
        return "Please send data to this application..."
     else:
-       display_items = ["Timestamp","Voltage","Current", "Resistance", "Battery", "Vehicle speed","Diagnostic message","Engine speed", "Engine oil","Coolant level"]     
+       display_items = ["Timestamp","Voltage","Current", "Resistance", "Battery", "Vehicle_speed","Diagnostic_message","Engine_speed", "Engine_oil","Coolant_level"]     
        return render_template("index.html",title=title, data=values, display_items = display_items)
 
 
