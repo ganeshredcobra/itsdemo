@@ -1,8 +1,9 @@
 from itertools import islice
 from flask import render_template
 from flask import jsonify
-from flask import request
+from flask import request, flash
 from app import app
+from wtforms import Form, TextField, TextAreaField, validators, StringField, SubmitField
 import requests
 
 tasks = [
@@ -51,7 +52,7 @@ def index():
 
 @app.route('/data', methods=['POST'])
 def push_data(): 
-    print (request.json)
+    #print (request.json)
     values.append(request.json)
     #return "success.."
     return jsonify(tasks), 201
@@ -64,4 +65,41 @@ def fetch_data():
        display_items = ["Timestamp","Voltage","Current", "Resistance", "Battery", "Vehicle speed","Diagnostic message","Engine speed", "Engine oil","Coolant level"]     
        return render_template("index.html",title=title, data=values, display_items = display_items)
 
+def my_form():
+    return render_template('my-form.html')
 
+@app.route('/form', methods=['POST'])
+def my_form_post():
+    text = request.form['text']
+    processed_text = text.upper()
+    return processed_text
+
+class ReusableForm(Form):
+    name = TextField('From:', validators=[validators.required()])
+    dest = TextField('Dest:', validators=[validators.required()])
+    via = TextField('Via:', validators=[validators.required()])
+    ad = TextField('Ad:', validators=[validators.required()])
+ 
+ 
+@app.route("/dash", methods=['GET', 'POST'])
+def hello():
+    form = ReusableForm(request.form)
+ 
+    #print form.errors
+    if request.method == 'POST':
+        name=request.form['name']
+        dest=request.form['dest']
+        via=request.form['via']
+        ad=request.form['ad']
+        #print name," ",dest," ",via," ",ad
+        if form.validate():
+            # Save the comment here.
+            tasks[0]['From']=u'%s'%name 
+            tasks[0]['Dest']=u'%s'%dest 
+            tasks[0]['Via']=u'%s'%via 
+            tasks[1]['description']=u'%s'%ad 
+            flash('Validated input ' + name +" "+ dest +" "+ via+" "+ ad)
+        else:
+            flash('All the form fields are required. ')
+ 
+    return render_template('dashboard.html', form=form)
