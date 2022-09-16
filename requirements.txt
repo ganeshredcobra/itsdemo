@@ -20,7 +20,7 @@ inflect==0.2.5
 ipaddress==1.0.19
 itsdangerous==0.24
 Jinja2==2.10
-Mako==1.0.7
+Mako==1.2.2
 MarkupSafe==1.0
 marshmallow==2.15.0
 marshmallow-sqlalchemy==0.13.2
